@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "crypto-reactnative",
+    "slug": "crypto-reactnative",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "crypto-reactnative"
+}
