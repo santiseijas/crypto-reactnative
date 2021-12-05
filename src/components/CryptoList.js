@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import {
   FlatList,
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import { CoinList, HistoricalChart } from "../config/api";
+import { CoinList } from "../../config/api";
 import { numberWithCommas } from "./Carrousel";
 
 const styles = StyleSheet.create({

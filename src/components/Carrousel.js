@@ -8,7 +8,7 @@ import {
     ImageBackground,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { CoinList, TrendingCoins } from "../config/api";
+import { CoinList, TrendingCoins } from "../../config/api";
 
 const styles = StyleSheet.create({
     carousel: {

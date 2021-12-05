@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
-import { HistoricalChart } from "../config/api";
+import { HistoricalChart } from "../../config/api";
 import {
     ChartDot,
     ChartPath,
