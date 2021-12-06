@@ -15,7 +15,7 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Carrousel />
-      <Search />
+      {/* <Search /> */}
       <CryptoList navigation={navigation} />
       <StatusBar style="auto" />
     </View>

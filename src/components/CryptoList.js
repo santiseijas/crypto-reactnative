@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
 import {
   FlatList,
   ScrollView,
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
   rank: {
     alignItems: "center",
     fontSize: 15,
+    margin:3
   },
   price: {
     justifyContent: "flex-end",
@@ -59,15 +61,14 @@ const styles = StyleSheet.create({
 
 const CryptoList = ({ navigation }) => {
   const [coins, setCoins] = useState([]);
+  const [search, setSearch] = useState("");
+  const [coinsFiler, setCoinsFilter] = useState([]);
 
-  let profit = coins?.price_change_percentage_24h >= 0;
   const currency = "usd";
-
 
   useEffect(() => {
     fetchCoins();
   }, [currency]);
-
 
   const fetchCoins = () => {
     return fetch(CoinList())
@@ -80,6 +81,13 @@ const CryptoList = ({ navigation }) => {
       });
   };
 
+  const handleSearch = () => {
+    const filter = coins.filter(
+      (coin) => coin.name.includes(search) || coin.symbol.includes(search)
+    );
+    setCoinsFilter(filter);     
+    return filter;
+  };
 
   const renderItem = ({ item, index }) => {
     return (
@@ -99,12 +107,12 @@ const CryptoList = ({ navigation }) => {
               <View style={styles.rankAndSymbol}>
                 <View
                   style={{
-                    width: 20,
-                    height: 20,
+                    width: 24,
+                    height: 24,
                     backgroundColor: "#B0B0B0",
                     alignItems: "center",
                     marginRight: 3,
-                    borderRadius: 10,
+                    borderRadius: 20,
                   }}
                 >
                   <Text style={styles.rank}>{item.market_cap_rank}</Text>
@@ -153,10 +161,40 @@ const CryptoList = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
-
   return (
     <ScrollView>
-      <FlatList data={coins} renderItem={renderItem}></FlatList>
+      <View>
+        <SearchBar
+          round
+          value={search}
+          placeholder="Search your favorite Crypto"
+          placeholderTextColor={"white"}
+          containerStyle={{
+            backgroundColor: "#404040",
+            borderRadius: 10,
+            marginTop: 5,
+            height: 50,
+          }}
+          inputStyle={{ color: "white" }}
+          underlineColorAndroid={"transparent"}
+          cancelButtonProps={{ disabled: "true" }}
+          cancelButtonTitle={""}
+          clearIcon={false}
+          onChangeText={(e) => {
+            if (e.length >= 1) {
+              setSearch(e);
+              handleSearch();
+            } else {
+              setSearch("");
+              setCoinsFilter(coins);
+            }
+          }}
+        />
+      </View>
+      <FlatList
+        data={coinsFiler && coinsFiler.length > 0 ? coinsFiler : coins}
+        renderItem={renderItem}
+      ></FlatList>
     </ScrollView>
   );
 };
